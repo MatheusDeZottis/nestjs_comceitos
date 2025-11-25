@@ -7,3 +7,18 @@ GET {{baseUrl}}/hello/
 ### exemplo de rota 
 #  @name AppControllerHome
 GET  {{baseUrl}}/home/
+
+###
+
+# @name recados
+GET {{baseUrl}}/recados
+
+###
+
+# @name recados
+GET {{baseUrl}}/recados/1/
+
+###
+
+# @name recados
+POST  {{baseUrl}}/recados/
