@@ -14,7 +14,6 @@ GET {{baseUrl}}/recados
 GET {{baseUrl}}/recados/1/
 
 ###
-
 # @name recados
 POST  {{baseUrl}}/recados/
 Content-Type: application/json
@@ -22,4 +21,14 @@ Content-Type: application/json
 {
     "recado": "Este é o recado que estou enviando",
     "nova chave": "outro valor"
+}
+
+###
+# @name atualizaRecados
+PATCH   {{baseUrl}}/recados/1/
+Content-Type: application/json
+
+{
+    "recado": "Este é o recado que estou enviando",
+    "atualizar": true
 }

@@ -9,3 +9,12 @@ import { RecadosController } from './recados.controller';
 export class RecadosModule {
 
 }
+
+// CRUD
+
+// Create --> GET --> Cria um recado
+// Read --> GET  --> Ler todos os recados
+// Update --> PATCH / PUT --> Atualizar um recado
+// Delete --> DELETE --> Apagar um recado
+
+// path
