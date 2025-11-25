@@ -2,15 +2,10 @@
 ### AppContollerGetHello
 
 #  @name AppControllerHello
-GET {{baseUrl}}/hello/
+GET {{baseUrl}}/hello
 
 ### exemplo de rota 
-#  @name AppControllerHome
-GET  {{baseUrl}}/home/
-
-###
-
-# @name recados
+# @name  RecadosController
 GET {{baseUrl}}/recados
 
 ###
@@ -22,3 +17,9 @@ GET {{baseUrl}}/recados/1/
 
 # @name recados
 POST  {{baseUrl}}/recados/
+Content-Type: application/json
+
+{
+    "recado": "Este é o recado que estou enviando",
+    "nova chave": "outro valor"
+}
