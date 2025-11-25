@@ -8,5 +8,5 @@ import { ConceitosManualModule } from 'src/conceitos-manual/conceitos-manual.mod
   controllers: [AppController],
   providers: [AppService],
   exports: []
-})
+}) 
 export class AppModule {}
