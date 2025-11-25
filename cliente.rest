@@ -15,7 +15,7 @@ GET {{baseUrl}}/recados/1/
 
 ###
 # @name recados
-POST  {{baseUrl}}/recados/
+POST  {{baseUrl}}/recados/1/
 Content-Type: application/json
 
 {
@@ -25,7 +25,17 @@ Content-Type: application/json
 
 ###
 # @name atualizaRecados
-PATCH   {{baseUrl}}/recados/1/
+PATCH {{baseUrl}}/recados/1/
+Content-Type: application/json
+
+{
+    "recado": "Este é o recado que estou enviando",
+    "atualizar": true
+}
+
+###
+# @name apagaRecado
+DELETE  {{baseUrl}}/recados/1/
 Content-Type: application/json
 
 {

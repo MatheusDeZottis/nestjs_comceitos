@@ -1,4 +1,4 @@
-import { Body, Controller, Get, HttpCode, HttpStatus, Param, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Patch, Post } from '@nestjs/common';
 
 @Controller('recados')
 
@@ -9,7 +9,7 @@ export class RecadosController {
         return "essa rota retorna todos os recados"
     }
 
-    @Get()
+    @Get(':id')
     findOne(@Param("id") id: string) {
         return `Essa rota retorna o recado ID ${id}`
     }
@@ -19,12 +19,17 @@ export class RecadosController {
         return body
     }
 
-    @Post(':id')
-    update(@Param() id: string, @Body() body: any) {
+    @Patch (':id')
+    update(@Param('id') id: string, @Body() body: any) {
         return {
             id,
             ...body
         }
     }
 
+    @Delete(':id')
+    remove(@Param('id') id: string){
+        return `Essa rota APAGA o recado ID ${id}`
+    }
+    
 }
