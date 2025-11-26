@@ -6,12 +6,12 @@ GET {{baseUrl}}/hello
 
 ### exemplo de rota 
 # @name  RecadosController
-GET {{baseUrl}}/recados
+GET {{baseUrl}}/recados/
 
 ###
 
 # @name recados
-GET {{baseUrl}}/recados/1/
+GET {{baseUrl}}/recados/2/
 
 ###
 # @name recados
@@ -19,7 +19,7 @@ POST  {{baseUrl}}/recados/
 Content-Type: application/json
 
 {
-  "texto": "Novo recado",
+  "texto": "2 Novo recado",
   "de": "joana",
   "para": "joao",
   "lido": false,
@@ -33,13 +33,13 @@ PATCH {{baseUrl}}/recados/2/
 Content-Type: application/json
 
 {
-    "recado": "Este é o recado que estou enviando",
+    "recado": "atalizando",
     "atualizar": true
 }
 
 ###
 # @name apagaRecado
-DELETE  {{baseUrl}}/recados/1/
+DELETE  {{baseUrl}}/recados/2/
 Content-Type: application/json
 
 {
