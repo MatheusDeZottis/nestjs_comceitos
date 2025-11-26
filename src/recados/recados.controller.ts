@@ -9,9 +9,11 @@ import {
   Patch,
   Post,
 } from '@nestjs/common';
+import { RecadosService } from './recados.service';
 
 @Controller('recados')
 export class RecadosController {
+  constructor(private readonly recadosService: RecadosService){}
   @Get()
   findAll() {
     return 'essa rota retorna todos os recados';
@@ -19,7 +21,7 @@ export class RecadosController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return `Essa rota retorna o recado ID ${id}`;
+    return /* `Essa rota retorna o recado ID ${id}`; */ this.recadosService.findOne(id)
   }
   @HttpCode(HttpStatus.CREATED)
   @Post()
