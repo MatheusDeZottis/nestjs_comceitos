@@ -39,7 +39,7 @@ Content-Type: application/json
 
 ###
 # @name apagaRecado
-DELETE  {{baseUrl}}/recados/2/
+DELETE  {{baseUrl}}/recados/3/
 Content-Type: application/json
 
 {

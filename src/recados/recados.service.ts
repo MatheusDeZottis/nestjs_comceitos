@@ -1,5 +1,7 @@
 import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
 import { RecadoEntity } from "./entities/recado.entety";
+import { CreateRecadoDto } from "./DTO/create-recado.dto";
+import { UpdateRecadoDto } from "./DTO/update-recado.dto";
 
 @Injectable()
 
@@ -35,19 +37,21 @@ export class RecadosService {
   }
   
 
-  create(body: any){
+  create(createRecado: CreateRecadoDto){
     this.lasrID ++;
     const id = this.lasrID;
     const novoRecado = {
       id,
-      ...body,
+      ... createRecado,
+      lido: false,
+      data: new Date()
     };
     this.recados.push(novoRecado)
     
     return novoRecado
   }
 
-  update(id: string, body: any){
+  update(id: string, updateRecado: UpdateRecadoDto){
     const recadoExistenteIndex = this.recados.findIndex(
       item => item.id === +id,
     )
@@ -58,7 +62,7 @@ export class RecadosService {
       const recadoExistente = this.recados[recadoExistenteIndex];
       this.recados[recadoExistenteIndex] = {
         ...recadoExistente,
-        ...body,
+        ...updateRecado,
     }
   }
 
