@@ -4,6 +4,12 @@
 #  @name AppControllerHello
 GET {{baseUrl}}/hello
 
+# @name Recados
+###lista todos os recados
+GET {{baseUrl}}/recados/
+?limit=10
+&offset=0
+
 ### exemplo de rota 
 # @name  RecadosController
 GET {{baseUrl}}/recados/
