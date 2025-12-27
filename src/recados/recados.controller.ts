@@ -18,10 +18,11 @@ import { UpdateRecadoDto } from './DTO/update-recado.dto';
 export class RecadosController {
   constructor(private readonly recadosService: RecadosService) { }
   @Get()
-  findAll(@Query() pagination: any) {
+ async findAll(@Query() pagination: any) {
      const { limit = 10, offset = 0 } = pagination;
       // return `Retorna todos os recados. Limit=${limit}, Offset=${offset}.`;
-     return this.recadosService.findAll();
+      const recados = await this.recadosService.findAll();
+      return recados;
   }
 
   @Get(':id')

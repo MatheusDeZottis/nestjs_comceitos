@@ -36,9 +36,11 @@ export class RecadosService {
     throw new HttpException("Recado Não emcotrado", HttpStatus.NOT_FOUND);
   }
 
-  findOne(id: string) {
-    const recado = this.recados.find(item => item.id === +id)
-
+ async findOne(id: string) {
+   // const recado = this.recados.find(item => item.id === +id)
+    const recado = await this.recadoRepository.findOne({
+      where: { id: +id },
+    })
     if (recado) return recado;
 
     this.throwNotFoundErro();
