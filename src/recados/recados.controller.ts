@@ -26,7 +26,7 @@ export class RecadosController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
+  findOne(@Param('id') id: number) {
     return  this.recadosService.findOne(id)
   }
   @HttpCode(HttpStatus.CREATED)
@@ -41,7 +41,7 @@ export class RecadosController {
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
+  remove(@Param('id') id: number) {
     return this.recadosService.remove(id)
   }
 }

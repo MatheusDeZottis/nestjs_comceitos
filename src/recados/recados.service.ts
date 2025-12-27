@@ -13,7 +13,6 @@ export class RecadosService {
     private readonly recadoRepository: Repository<RecadoEntity>,
   ) { }
 
-  private lasrID = 1;
   private recados: RecadoEntity[] = [
 
     {
@@ -36,10 +35,10 @@ export class RecadosService {
     throw new HttpException("Recado Não emcotrado", HttpStatus.NOT_FOUND);
   }
 
- async findOne(id: string) {
+ async findOne(id: number) {
    // const recado = this.recados.find(item => item.id === +id)
     const recado = await this.recadoRepository.findOne({
-      where: { id: +id },
+      where: { id, },
     })
     if (recado) return recado;
 
@@ -48,18 +47,15 @@ export class RecadosService {
   }
 
 
-  create(createRecado: CreateRecadoDto) {
-    this.lasrID++;
-    const id = this.lasrID;
+  async create(createRecado: CreateRecadoDto) {
     const novoRecado = {
-      id,
       ...createRecado,
       lido: false,
       data: new Date()
     };
-    this.recados.push(novoRecado)
+    await this.recadoRepository.create(novoRecado);
 
-    return novoRecado
+    return this.recadoRepository.save(novoRecado);
   }
 
   update(id: string, updateRecado: UpdateRecadoDto) {
@@ -77,19 +73,15 @@ export class RecadosService {
     }
   }
 
-  remove(id: string) {
-    const recadoExistenteIndex = this.recados.findIndex(
-      item => item.id === +id,
-    );
-    if (recadoExistenteIndex <= 0) {
-      this.throwNotFoundErro()
-    }
+ async remove(id: number) {
+  const recado = await this.recadoRepository.findOneBy({ id });
 
-    const recado = this.recados[recadoExistenteIndex]
-
-    this.recados.splice(recadoExistenteIndex, 1);
-
-    return recado
+  if (!recado) {
+    this.throwNotFoundErro();
   }
+
+  return this.recadoRepository.remove(recado!);
+}
+
 }
 
