@@ -6,6 +6,7 @@ import {
   HttpCode,
   HttpStatus,
   Param,
+  ParseIntPipe,
   Patch,
   Post,
   Query,
@@ -18,16 +19,16 @@ import { UpdateRecadoDto } from './DTO/update-recado.dto';
 export class RecadosController {
   constructor(private readonly recadosService: RecadosService) { }
   @Get()
- async findAll(@Query() pagination: any) {
-     const { limit = 10, offset = 0 } = pagination;
-      // return `Retorna todos os recados. Limit=${limit}, Offset=${offset}.`;
-      const recados = await this.recadosService.findAll();
-      return recados;
+  async findAll(@Query() pagination: any) {
+    const { limit = 10, offset = 0 } = pagination;
+    // return `Retorna todos os recados. Limit=${limit}, Offset=${offset}.`;
+    const recados = await this.recadosService.findAll();
+    return recados;
   }
 
   @Get(':id')
   findOne(@Param('id') id: number) {
-    return  this.recadosService.findOne(id)
+    return this.recadosService.findOne(id)
   }
   @HttpCode(HttpStatus.CREATED)
   @Post()
@@ -36,8 +37,11 @@ export class RecadosController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateRecado: UpdateRecadoDto) {
-   return this.recadosService.update(id, updateRecado)
+  update(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() updateRecado: UpdateRecadoDto,
+  ) {
+    return this.recadosService.update(id, updateRecado);
   }
 
   @Delete(':id')

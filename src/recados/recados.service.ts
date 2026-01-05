@@ -35,8 +35,7 @@ export class RecadosService {
     throw new HttpException("Recado Não emcotrado", HttpStatus.NOT_FOUND);
   }
 
- async findOne(id: number) {
-   // const recado = this.recados.find(item => item.id === +id)
+  async findOne(id: number) {
     const recado = await this.recadoRepository.findOne({
       where: { id, },
     })
@@ -58,30 +57,36 @@ export class RecadosService {
     return this.recadoRepository.save(novoRecado);
   }
 
-  update(id: string, updateRecado: UpdateRecadoDto) {
-    const recadoExistenteIndex = this.recados.findIndex(
-      item => item.id === +id,
-    )
-    if (recadoExistenteIndex <= 0) {
-      this.throwNotFoundErro()
-    }
+  async update(id: number, updateRecado: UpdateRecadoDto) {
+    const partialUpdateRecadoDTO = {
+      lido: updateRecado?.lido,
+      texto: updateRecado?.texto,
+    };
 
-    const recadoExistente = this.recados[recadoExistenteIndex];
-    this.recados[recadoExistenteIndex] = {
-      ...recadoExistente,
-      ...updateRecado,
-    }
+    const recado = await this.recadoRepository.preload({
+      id,
+      ...partialUpdateRecadoDTO,
+    });
+
+    if (!recado) return this.throwNotFoundErro();
+
+    await this.recadoRepository.save(recado);
+  
+    return recado;
+  
   }
 
- async remove(id: number) {
-  const recado = await this.recadoRepository.findOneBy({ id });
 
-  if (!recado) {
-    this.throwNotFoundErro();
+
+  async remove(id: number) {
+    const recado = await this.recadoRepository.findOneBy({ id });
+
+    if (!recado) {
+      this.throwNotFoundErro();
+    }
+
+    return this.recadoRepository.remove(recado!);
   }
-
-  return this.recadoRepository.remove(recado!);
-}
 
 }
 

@@ -12,12 +12,12 @@ GET {{baseUrl}}/recados/
 
 ### exemplo de rota 
 # @name  RecadosController
-GET {{baseUrl}}/recados/
+GET {{baseUrl}}/recados/11
 
 ###
 
 # @name recados
-GET {{baseUrl}}/recados/3/
+GET {{baseUrl}}/recados/12/
 
 ###
 # @name recados
@@ -35,13 +35,14 @@ Content-Type: application/json
 
 ###
 # @name atualizaRecados
-PATCH {{baseUrl}}/recados/2/
+PATCH {{baseUrl}}/recados/12/
 Content-Type: application/json
 
 {
-    "recado": "atalizando",
-    "atualizar": true
+  "texto": "2 Novo teste teste 3 ",
+  "lido": true
 }
+
 
 ###
 # @name apagaRecado
