@@ -47,3 +47,47 @@ Content-Type: application/json
 ###
 # @name apagaRecado
 DELETE  {{baseUrl}}/recados/4/
+
+
+
+
+
+
+
+
+
+
+@baseUrl = http://localhost:3000
+### AppContollerGetHello
+
+#  @name AppControllerHello
+GET {{baseUrl}}/hello
+
+# @name Pessoas
+###lista todos os recados
+GET {{baseUrl}}/Pessoas/
+?limit=10
+&offset=0
+
+### exemplo de rota 
+# @name  PessoasController
+GET {{baseUrl}}/Pessoas/11
+
+###
+
+# @name Pessoas
+GET {{baseUrl}}/Pessoas/12/
+
+###
+GET {{baseUrl}}/Pessoas/12/
+
+###
+# @name Pessoas
+POST  {{baseUrl}}/Pessoas/
+Content-Type: application/json
+
+{
+  "nome": "Joana",
+  "passwordHash": "hash123",
+  "email": "joana@example.com"
+}

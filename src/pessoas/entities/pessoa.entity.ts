@@ -6,7 +6,9 @@ export class Pessoa {
     @PrimaryGeneratedColumn()
     public id: number;
     
-    @Column()
+    @Column(
+        { unique: true }
+    )
     @IsEmail()
     public email: string;
     
