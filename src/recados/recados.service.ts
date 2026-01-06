@@ -1,20 +1,18 @@
-import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
-import { RecadoEntity } from "./entities/recado.entety";
-import { CreateRecadoDto } from "./DTO/create-recado.dto";
-import { UpdateRecadoDto } from "./DTO/update-recado.dto";
-import { InjectRepository } from "@nestjs/typeorm";
-import { Repository } from "typeorm";
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { RecadoEntity } from './entities/recado.entety';
+import { CreateRecadoDto } from './DTO/create-recado.dto';
+import { UpdateRecadoDto } from './DTO/update-recado.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 
 @Injectable()
-
 export class RecadosService {
   constructor(
     @InjectRepository(RecadoEntity)
     private readonly recadoRepository: Repository<RecadoEntity>,
-  ) { }
+  ) {}
 
   private recados: RecadoEntity[] = [
-
     {
       id: 1,
       texto: 'Este é um teste',
@@ -25,32 +23,29 @@ export class RecadosService {
     },
   ];
 
-
   async findAll() {
     const recados = await this.recadoRepository.find();
     return recados;
   }
 
   throwNotFoundErro() {
-    throw new HttpException("Recado Não emcotrado", HttpStatus.NOT_FOUND);
+    throw new HttpException('Recado Não emcotrado', HttpStatus.NOT_FOUND);
   }
 
   async findOne(id: number) {
     const recado = await this.recadoRepository.findOne({
-      where: { id, },
-    })
+      where: { id },
+    });
     if (recado) return recado;
 
     this.throwNotFoundErro();
-
   }
-
 
   async create(createRecado: CreateRecadoDto) {
     const novoRecado = {
       ...createRecado,
       lido: false,
-      data: new Date()
+      data: new Date(),
     };
     await this.recadoRepository.create(novoRecado);
 
@@ -71,12 +66,9 @@ export class RecadosService {
     if (!recado) return this.throwNotFoundErro();
 
     await this.recadoRepository.save(recado);
-  
+
     return recado;
-  
   }
-
-
 
   async remove(id: number) {
     const recado = await this.recadoRepository.findOneBy({ id });
@@ -87,6 +79,4 @@ export class RecadosService {
 
     return this.recadoRepository.remove(recado!);
   }
-
 }
-

@@ -17,7 +17,7 @@ import { UpdateRecadoDto } from './DTO/update-recado.dto';
 
 @Controller('recados')
 export class RecadosController {
-  constructor(private readonly recadosService: RecadosService) { }
+  constructor(private readonly recadosService: RecadosService) {}
   @Get()
   async findAll(@Query() pagination: any) {
     const { limit = 10, offset = 0 } = pagination;
@@ -28,7 +28,7 @@ export class RecadosController {
 
   @Get(':id')
   findOne(@Param('id') id: number) {
-    return this.recadosService.findOne(id)
+    return this.recadosService.findOne(id);
   }
   @HttpCode(HttpStatus.CREATED)
   @Post()
@@ -46,6 +46,6 @@ export class RecadosController {
 
   @Delete(':id')
   remove(@Param('id') id: number) {
-    return this.recadosService.remove(id)
+    return this.recadosService.remove(id);
   }
 }
