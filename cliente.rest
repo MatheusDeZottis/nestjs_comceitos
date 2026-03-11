@@ -65,29 +65,42 @@ GET {{baseUrl}}/hello
 
 # @name Pessoas
 ###lista todos os recados
-GET {{baseUrl}}/Pessoas/
+GET {{baseUrl}}/pessoas/
 ?limit=10
 &offset=0
 
 ### exemplo de rota 
 # @name  PessoasController
-GET {{baseUrl}}/Pessoas/11
+GET {{baseUrl}}/pessoas/1
 
 ###
 
 # @name Pessoas
-GET {{baseUrl}}/Pessoas/12/
+GET {{baseUrl}}/pessoas/1/
 
 ###
-GET {{baseUrl}}/Pessoas/12/
+GET {{baseUrl}}/pessoas/3/
 
 ###
 # @name Pessoas
-POST  {{baseUrl}}/Pessoas/
+POST  {{baseUrl}}/pessoas/
 Content-Type: application/json
 
 {
-  "nome": "Joana",
+  "nome": "matheus",
   "passwordHash": "hash123",
-  "email": "joana@example.com"
+  "email": "matheus@example.com"
 }
+
+###
+# @name atualizaPessoas
+PATCH {{baseUrl}}/pessoas/12/
+Content-Type: application/json
+{
+  "nome": "Joana Silva",
+  "email": "joana.silva@example.com"
+}
+
+###
+# @name apagaPessoas
+DELETE {{baseUrl}}/pessoas/12/

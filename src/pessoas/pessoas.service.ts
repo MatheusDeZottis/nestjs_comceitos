@@ -1,4 +1,4 @@
-import { ConflictException, Injectable } from '@nestjs/common';
+import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
 import { CreatePessoaDto } from './dto/create-pessoa.dto';
 import { UpdatePessoaDto } from './dto/update-pessoa.dto';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -24,7 +24,9 @@ export class PessoasService {
       return novaPessoa;
       
     }catch(error) {
-      if(error.code === '23505'){
+      const databaseError = error as { code?: string };
+
+      if(databaseError.code === '23505'){
         throw new ConflictException('Email já cadastrado');
       }
       throw error;
@@ -33,18 +35,45 @@ export class PessoasService {
 
 
   findAll() {
-    return `This action returns all pessoas`;
+    return this.pessoaRepository.find({
+      order: {
+        id: 'desc'
+      }
+    });
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} pessoa`;
+  async findOne(id: number) {
+    const pessoa = await this.pessoaRepository.findOneBy({ id });
+
+    if (!pessoa) {
+      throw new NotFoundException(`Pessoa com id ${id} não encontrada`);
+    }
+
+    return pessoa;
   }
 
-  update(id: number, updatePessoaDto: UpdatePessoaDto) {
-    return `This action updates a #${id} pessoa`;
+  async update(id: number, updatePessoaDto: UpdatePessoaDto) {
+    const pessoa = await this.findOne(id);
+
+    Object.assign(pessoa, updatePessoaDto);
+
+    try {
+      return await this.pessoaRepository.save(pessoa);
+    } catch (error) {
+      const databaseError = error as { code?: string };
+
+      if (databaseError.code === '23505') {
+        throw new ConflictException('Email já cadastrado');
+      }
+      throw error;
+    }
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} pessoa`;
+  async remove(id: number) {
+    const person = await this.pessoaRepository.findOneBy({ id });
+    if (!person) {
+      throw new NotFoundException(`Pessoa com id ${id} não encontrada`);
+    }
+    await this.pessoaRepository.remove(person);
   }
 }
