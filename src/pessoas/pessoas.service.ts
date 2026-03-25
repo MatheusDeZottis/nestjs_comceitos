@@ -35,11 +35,12 @@ export class PessoasService {
 
 
   findAll() {
-    return this.pessoaRepository.find({
+    const pessoas = this.pessoaRepository.find({
       order: {
         id: 'desc'
       }
     });
+    return pessoas;
   }
 
   async findOne(id: number) {
@@ -52,28 +53,26 @@ export class PessoasService {
     return pessoa;
   }
 
-  async update(id: number, updatePessoaDto: UpdatePessoaDto) {
-    const pessoa = await this.findOne(id);
-
-    Object.assign(pessoa, updatePessoaDto);
-
-    try {
-      return await this.pessoaRepository.save(pessoa);
-    } catch (error) {
-      const databaseError = error as { code?: string };
-
-      if (databaseError.code === '23505') {
-        throw new ConflictException('Email já cadastrado');
+  async update(id: number, updatePessoaDto: UpdatePessoaDto) { 
+     const dadosPessoa = {
+      nome: updatePessoaDto.nome,
+        passwordHash: updatePessoaDto.passwordHash,
+      };
+      const pessoa =  await this.pessoaRepository.preload({
+        id,
+        ...dadosPessoa,
+      })
+      if(!pessoa){
+        throw new NotFoundException('Pessoa não encotrada');
       }
-      throw error;
-    }
+      return this.pessoaRepository.save(pessoa);
   }
 
   async remove(id: number) {
-    const person = await this.pessoaRepository.findOneBy({ id });
-    if (!person) {
+    const pessoa = await this.pessoaRepository.findOneBy({ id });
+    if (!pessoa) {
       throw new NotFoundException(`Pessoa com id ${id} não encontrada`);
     }
-    await this.pessoaRepository.remove(person);
+    return this.pessoaRepository.remove(pessoa);
   }
 }

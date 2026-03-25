@@ -87,20 +87,22 @@ POST  {{baseUrl}}/pessoas/
 Content-Type: application/json
 
 {
-  "nome": "matheus",
+  "nome": "lex",
   "passwordHash": "hash123",
-  "email": "matheus@example.com"
+  "email": "lex@example.com"
 }
 
 ###
 # @name atualizaPessoas
-PATCH {{baseUrl}}/pessoas/12/
+PATCH {{baseUrl}}/pessoas/3
 Content-Type: application/json
+Accept: application/json
+
 {
-  "nome": "Joana Silva",
-  "email": "joana.silva@example.com"
+  "nome": "Mateus Teste",
+  "email": "mateus.teste@example.com"
 }
 
 ###
 # @name apagaPessoas
-DELETE {{baseUrl}}/pessoas/12/
+DELETE {{baseUrl}}/pessoas/4/
