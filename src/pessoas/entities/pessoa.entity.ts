@@ -1,21 +1,24 @@
 import { IsEmail } from "class-validator";
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { RecadoEntity } from "src/recados/entities/recado.entity";
+import { Column, Entity,  OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class Pessoa {
     @PrimaryGeneratedColumn()
-    public id: number;
+    public id!: number;
     
     @Column(
         { unique: true }
     )
     @IsEmail()
-    public email: string;
+    public email!: string;
     
     @Column({ length: 255 })
-    public passwordHash: string;
+    public passwordHash!: string;
     
     @Column()
-    public nome: string;
+    public nome!: string;
 
-}
+    @OneToMany(() => RecadoEntity, recado => RecadoEntity)
+    recadosEnviados!: RecadoEntity[]
+} 

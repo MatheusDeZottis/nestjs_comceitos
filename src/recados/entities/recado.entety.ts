@@ -8,22 +8,22 @@ import {
 @Entity('recados')
 export class RecadoEntity {
   @PrimaryGeneratedColumn()
-  public id: number;
+  public id!: number;
 
   @Column({ type: 'varchar', length: 255 })
-  public texto: string;
+  public texto!: string;
 
   @Column({ type: 'varchar', length: 50 })
-  public de: string;
+  public de!: string;
 
   @Column({ type: 'varchar', length: 50 })
-  public para: string;
+  public para!: string;
 
   @Column({ type: 'boolean', default: false })
-  public lido: boolean;
+  public lido!: boolean;
 
   @Column({ type: 'date' })
-  public data: Date;
+  public data!: Date;
 
   @CreateDateColumn()
   createdAt?: Date;

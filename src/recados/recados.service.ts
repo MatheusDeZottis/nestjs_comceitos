@@ -1,5 +1,5 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { RecadoEntity } from './entities/recado.entety';
+import { RecadoEntity } from './entities/recado.entity';
 import { CreateRecadoDto } from './DTO/create-recado.dto';
 import { UpdateRecadoDto } from './DTO/update-recado.dto';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -11,17 +11,6 @@ export class RecadosService {
     @InjectRepository(RecadoEntity)
     private readonly recadoRepository: Repository<RecadoEntity>,
   ) {}
-
-  private recados: RecadoEntity[] = [
-    {
-      id: 1,
-      texto: 'Este é um teste',
-      de: 'joana',
-      para: 'joao',
-      lido: false,
-      data: new Date(),
-    },
-  ];
 
   async findAll() {
     const recados = await this.recadoRepository.find();
